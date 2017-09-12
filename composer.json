@@ -25,7 +25,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Mvo\\ContaoOpengraphTags\\": "src/"
+      "Mvo\\ContaoOpenGraphTags\\": "src/"
     }
   },
   "extra": {
