@@ -25,7 +25,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Mvo\\ContaoFacebook\\": "src/"
+      "Mvo\\ContaoOpengraphTags\\": "src/"
     }
   },
   "extra": {
