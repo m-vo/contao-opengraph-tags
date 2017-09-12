@@ -1,0 +1,14 @@
+{# obligatory types #}
+<meta property="og:type" content="{{ type }}"/>
+<meta property="og:url" content="{{ url }}"/>
+<meta property="og:title" content="{{ title }}"/>
+{% for image in images %}
+    <meta property="og:image" content="{{ app.request.schemeAndHttpHost }}/{{ image.src }}"/>
+    {% if  image.mime is defined %}<meta property="og:image:type" content="{{ image.mime }}"/>{% endif %}
+    {% if  image.width is defined %}<meta property="og:image:width" content="{{ image.width }}"/>{% endif %}
+    {% if  image.height is defined %}<meta property="og:image:height" content="{{ image.height }}" />{% endif %}
+{% endfor %}
+{# optional types #}
+{%  if locale is defined %}<meta property="og:locale" content="{{ locale }}"/>{% endif %}
+{%  if site_name is defined %}<meta property="og:site_name" content="{{ site_name }}"/>{% endif %}
+{%  if description is defined %}<meta property="og:description" content="{{ description }}"/>{% endif %}

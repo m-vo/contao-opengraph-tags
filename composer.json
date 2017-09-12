@@ -1,0 +1,34 @@
+{
+  "name": "mvo/contao-opengraph-tags",
+  "type": "contao-bundle",
+  "description": "Add opengraph tags to your pages in Contao Open Source CMS",
+  "keywords": [
+    "contao",
+    "opengraph",
+    "tags",
+    "SEO"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Moritz Vondano",
+      "homepage": "https://github.com/m-vo/contao-opengraph-tags"
+    }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "symfony/symfony": "^3.3",
+    "contao/core-bundle": "^4.4.0"
+  },
+  "require-dev": {
+    "contao/manager-plugin": "^2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mvo\\ContaoFacebook\\": "src/"
+    }
+  },
+  "extra": {
+    "contao-manager-plugin": "Mvo\\ContaoOpenGraphTags\\ContaoManager\\Plugin"
+  }
+}
