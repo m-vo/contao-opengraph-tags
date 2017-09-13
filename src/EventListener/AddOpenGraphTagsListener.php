@@ -19,7 +19,7 @@ class AddOpenGraphTagsListener implements ContainerAwareInterface
     {
         $objRootPage = PageModel::findById($objPage->rootId);
 
-        if (null != $objRootPage && $objRootPage->mvo_facebook_og_enabled) {
+        if (null != $objRootPage && $objRootPage->mvo_og_tags_enabled) {
             $GLOBALS['TL_HEAD'][] = self::generateMetaTags($objPage);
         }
     }
