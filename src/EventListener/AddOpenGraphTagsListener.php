@@ -37,8 +37,7 @@ class AddOpenGraphTagsListener implements ContainerAwareInterface
             'url'    => Environment::get('uri'),
             'title'  => $objPage->title,
             'images' => self::getImageAttributes($objPage),
-            // fixme: correct locale would be 'language_territory' (here it's only 'language')
-            'locale' => $objPage->language
+            'locale' => self::getLocale($objPage)
         ];
 
         if ('' != $objPage->description) {
@@ -82,6 +81,26 @@ class AddOpenGraphTagsListener implements ContainerAwareInterface
         }
 
         return $arrImageAttributes;
+    }
+
+    /**
+     * @param PageModel $objPage
+     *
+     * @return string
+     */
+    private static function getLocale(PageModel $objPage): string
+    {
+        $fallbackLanguage = $objPage->language;
+
+        // find closest locale setting in tree
+        do {
+            if ($objPage->mvo_og_tags_locale) {
+                return $objPage->mvo_og_tags_locale;
+            };
+        } while (null != $objPage = PageModel::findById($objPage->pid));
+
+        // fallback: use language instead of locale (which is incorrect by spec but might get parsed anyhow)
+        return null != $fallbackLanguage ? $fallbackLanguage : '';
     }
 
     /**
