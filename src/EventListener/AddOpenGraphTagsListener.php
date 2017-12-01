@@ -2,6 +2,7 @@
 
 namespace Mvo\ContaoOpenGraphTags\EventListener;
 
+use Contao\Environment;
 use Contao\File;
 use Contao\FilesModel;
 use Contao\PageModel;
@@ -33,6 +34,7 @@ class AddOpenGraphTagsListener implements ContainerAwareInterface
     {
         $arrData = [
             'type'   => 'website',
+            'url'    => Environment::get('uri'),
             'title'  => $objPage->title,
             'images' => self::getImageAttributes($objPage),
             // fixme: correct locale would be 'language_territory' (here it's only 'language')

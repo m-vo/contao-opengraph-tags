@@ -1,6 +1,6 @@
 {# obligatory types #}
 <meta property="og:type" content="{{ type }}">
-<meta property="og:url" content="{{ env::url }}">
+<meta property="og:url" content="{{ url }}">
 <meta property="og:title" content="{{ title }}">
 {% for image in images %}
     <meta property="og:image" content="{{ app.request.schemeAndHttpHost }}/{{ image.src }}">
