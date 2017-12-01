@@ -33,7 +33,6 @@ class AddOpenGraphTagsListener implements ContainerAwareInterface
     {
         $arrData = [
             'type'   => 'website',
-            'url'    => $objPage->getAbsoluteUrl(),
             'title'  => $objPage->title,
             'images' => self::getImageAttributes($objPage),
             // fixme: correct locale would be 'language_territory' (here it's only 'language')
