@@ -32,7 +32,7 @@ class AddOpenGraphTagsListener
     /**
      * @param PageModel $objPage
      */
-    public function onInject(PageModel $objPage)
+    public function onInject(PageModel $objPage): void
     {
         $objRootPage = PageModel::findById($objPage->rootId);
 
@@ -48,7 +48,7 @@ class AddOpenGraphTagsListener
      */
     private function generateMetaTags(PageModel $objPage): string
     {
-        $arrData = [
+        $data = [
             'type' => 'website',
             'url' => Environment::get('uri'),
             'title' => $objPage->title,
@@ -57,13 +57,13 @@ class AddOpenGraphTagsListener
         ];
 
         if ('' !== $objPage->description) {
-            $arrData['description'] = $objPage->description;
+            $data['description'] = $objPage->description;
         }
         if ('' !== $objPage->rootTitle) {
-            $arrData['site_name'] = $objPage->rootTitle;
+            $data['site_name'] = $objPage->rootTitle;
         }
 
-        return $this->twig->render('@MvoContaoOpenGraphTags/meta_tags.html.twig', $arrData);
+        return $this->twig->render('@MvoContaoOpenGraphTags/meta_tags.html.twig', $data);
     }
 
     /**
@@ -116,7 +116,7 @@ class AddOpenGraphTagsListener
         } while (null !== $objPage = PageModel::findById($objPage->pid));
 
         // fallback: use language instead of locale (which is incorrect by spec but might get parsed anyhow)
-        return null !== $fallbackLanguage ? $fallbackLanguage : '';
+        return $fallbackLanguage ?? '';
     }
 
     /**
@@ -124,7 +124,7 @@ class AddOpenGraphTagsListener
      *
      * @return array|null
      */
-    private static function getImageAttribute(string $imageUuid)
+    private static function getImageAttribute(string $imageUuid): ?array
     {
         $objFilesModel = FilesModel::findByUuid($imageUuid);
 
