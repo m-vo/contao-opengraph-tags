@@ -1,12 +1,6 @@
 services:
-  _instanceof:
-    Contao\CoreBundle\Framework\FrameworkAwareInterface:
-      calls:
-        - ["setFramework", ["@contao.framework"]]
-
-    Symfony\Component\DependencyInjection\ContainerAwareInterface:
-      calls:
-        - ["setContainer", ["@service_container"]]
-
   mvo_contao_opengraph_tags.listener.open_graph_tags:
     class: 'Mvo\ContaoOpenGraphTags\EventListener\AddOpenGraphTagsListener'
+    arguments:
+      ['@twig']
+    public: true

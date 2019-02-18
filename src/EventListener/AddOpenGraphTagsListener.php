@@ -9,9 +9,19 @@ use Contao\PageModel;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
-class AddOpenGraphTagsListener implements ContainerAwareInterface
+class AddOpenGraphTagsListener
 {
-    use ContainerAwareTrait;
+    /** @var \Twig\Environment */
+    private $twig;
+
+    /**
+     * AddOpenGraphTagsListener constructor.
+     * @param \Twig\Environment $twig
+     */
+    public function __construct(\Twig\Environment $twig)
+    {
+        $this->twig = $twig;
+    }
 
     /**
      * @param PageModel $objPage
@@ -47,7 +57,7 @@ class AddOpenGraphTagsListener implements ContainerAwareInterface
             $arrData['site_name'] = $objPage->rootTitle;
         }
 
-        return $this->container->get('twig')->render('@MvoContaoOpenGraphTags/meta_tags.html.twig', $arrData);
+        return $this->twig->render('@MvoContaoOpenGraphTags/meta_tags.html.twig', $arrData);
     }
 
     /**
