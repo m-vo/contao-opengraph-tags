@@ -21,7 +21,8 @@
     "symfony/twig-bundle": "3.4.* || 4.1.* || 4.2.*"
   },
   "require-dev": {
-    "contao/manager-plugin": "^2.0"
+    "contao/manager-plugin": "^2.0",
+    "friendsofphp/php-cs-fixer": "^2.2"
   },
   "autoload": {
     "psr-4": {

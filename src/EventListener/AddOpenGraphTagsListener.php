@@ -1,13 +1,18 @@
 <?php
 
+/*
+ * OpenGraph Tags bundle for Contao Open Source CMS
+ *
+ * @copyright  Copyright (c) $date, Moritz Vondano
+ * @license MIT
+ */
+
 namespace Mvo\ContaoOpenGraphTags\EventListener;
 
 use Contao\Environment;
 use Contao\File;
 use Contao\FilesModel;
 use Contao\PageModel;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 class AddOpenGraphTagsListener
 {
@@ -16,6 +21,7 @@ class AddOpenGraphTagsListener
 
     /**
      * AddOpenGraphTagsListener constructor.
+     *
      * @param \Twig\Environment $twig
      */
     public function __construct(\Twig\Environment $twig)
@@ -30,7 +36,7 @@ class AddOpenGraphTagsListener
     {
         $objRootPage = PageModel::findById($objPage->rootId);
 
-        if (null != $objRootPage && $objRootPage->mvo_og_tags_enabled) {
+        if (null !== $objRootPage && $objRootPage->mvo_og_tags_enabled) {
             $GLOBALS['TL_HEAD'][] = self::generateMetaTags($objPage);
         }
     }
@@ -43,17 +49,17 @@ class AddOpenGraphTagsListener
     private function generateMetaTags(PageModel $objPage): string
     {
         $arrData = [
-            'type'   => 'website',
-            'url'    => Environment::get('uri'),
-            'title'  => $objPage->title,
+            'type' => 'website',
+            'url' => Environment::get('uri'),
+            'title' => $objPage->title,
             'images' => self::getImageAttributes($objPage),
-            'locale' => self::getLocale($objPage)
+            'locale' => self::getLocale($objPage),
         ];
 
-        if ('' != $objPage->description) {
+        if ('' !== $objPage->description) {
             $arrData['description'] = $objPage->description;
         }
-        if ('' != $objPage->rootTitle) {
+        if ('' !== $objPage->rootTitle) {
             $arrData['site_name'] = $objPage->rootTitle;
         }
 
@@ -70,14 +76,14 @@ class AddOpenGraphTagsListener
         // find closest image(s) in tree
         $images = null;
         do {
-            if (null != $objPage->mvo_og_tags_images_order && '' != $objPage->mvo_og_tags_images_order) {
+            if (null !== $objPage->mvo_og_tags_images_order && '' !== $objPage->mvo_og_tags_images_order) {
                 $images = deserialize($objPage->mvo_mvo_og_tags_images);
-            } elseif (null != $objPage->mvo_og_tags_images && '' != $objPage->mvo_og_tags_images) {
+            } elseif (null !== $objPage->mvo_og_tags_images && '' !== $objPage->mvo_og_tags_images) {
                 $images = deserialize($objPage->mvo_og_tags_images);
             }
-        } while (null == $images && null != $objPage = PageModel::findById($objPage->pid));
+        } while (null === $images && null !== $objPage = PageModel::findById($objPage->pid));
 
-        if (null == $images) {
+        if (null === $images) {
             return [];
         }
 
@@ -85,7 +91,7 @@ class AddOpenGraphTagsListener
         $arrImageAttributes = [];
         foreach ($images as $imageUuid) {
             $imageAttributes = self::getImageAttribute($imageUuid);
-            if (null != $imageAttributes) {
+            if (null !== $imageAttributes) {
                 $arrImageAttributes[] = $imageAttributes;
             }
         }
@@ -106,11 +112,11 @@ class AddOpenGraphTagsListener
         do {
             if ($objPage->mvo_og_tags_locale) {
                 return $objPage->mvo_og_tags_locale;
-            };
-        } while (null != $objPage = PageModel::findById($objPage->pid));
+            }
+        } while (null !== $objPage = PageModel::findById($objPage->pid));
 
         // fallback: use language instead of locale (which is incorrect by spec but might get parsed anyhow)
-        return null != $fallbackLanguage ? $fallbackLanguage : '';
+        return null !== $fallbackLanguage ? $fallbackLanguage : '';
     }
 
     /**
@@ -122,14 +128,15 @@ class AddOpenGraphTagsListener
     {
         $objFilesModel = FilesModel::findByUuid($imageUuid);
 
-        if (null != $objFilesModel && null != $objFile = new File($objFilesModel->path)
+        if (null !== $objFilesModel && null !== $objFile = new File($objFilesModel->path)
         ) {
             $arrAttributes = $objFile->imageSize;
+
             return [
-                'src'    => $objFilesModel->path,
-                'width'  => $arrAttributes[0],
+                'src' => $objFilesModel->path,
+                'width' => $arrAttributes[0],
                 'height' => $arrAttributes[1],
-                'mime'   => $arrAttributes['mime']
+                'mime' => $arrAttributes['mime'],
             ];
         }
 

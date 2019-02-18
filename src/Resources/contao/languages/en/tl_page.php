@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * OpenGraph Tags bundle for Contao Open Source CMS
+ *
+ * @copyright  Copyright (c) $date, Moritz Vondano
+ * @license MIT
+ */
+
 $GLOBALS['TL_LANG']['tl_page']['mvo_og_tags_legend'] = 'OpenGraph settings';
 $GLOBALS['TL_LANG']['tl_page']['mvo_og_tags_enabled'][0] = 'Enable OpenGraph tags for this page tree';
 $GLOBALS['TL_LANG']['tl_page']['mvo_og_tags_locale'] = ['Locale for this page/tree', 'e.g. en_GB'];
