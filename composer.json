@@ -17,8 +17,8 @@
   ],
   "require": {
     "php": ">=7.1",
-    "symfony/symfony": "^3.3",
-    "contao/core-bundle": "^4.4.0"
+    "contao/core-bundle": "^4.4.0",
+    "symfony/twig-bundle": "3.4.* || 4.1.* || 4.2.*"
   },
   "require-dev": {
     "contao/manager-plugin": "^2.0"
