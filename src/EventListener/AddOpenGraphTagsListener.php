@@ -77,7 +77,7 @@ class AddOpenGraphTagsListener
         $images = null;
         do {
             if (null !== $objPage->mvo_og_tags_images_order && '' !== $objPage->mvo_og_tags_images_order) {
-                $images = deserialize($objPage->mvo_mvo_og_tags_images);
+                $images = deserialize($objPage->mvo_og_tags_images);
             } elseif (null !== $objPage->mvo_og_tags_images && '' !== $objPage->mvo_og_tags_images) {
                 $images = deserialize($objPage->mvo_og_tags_images);
             }
